@@ -49,6 +49,34 @@ func CreateJWTToken(ctx context.Context, claims model.Claims) (string, model.Cla
 	return jwtToken, claims, nil
 }
 
+func CreateJWTTokenWithoutCookie(ctx context.Context, claims model.Claims) (string, model.Claims, error) {
+	if err := validateIssuer(claims.RegisteredClaims.Issuer); err != nil {
+		return "", model.Claims{}, err
+	}
+
+	// IAT (Issued At).
+	issuedAt := time.Now().Local()
+
+	// EXP (Expires At).
+	expiresAtt := issuedAt.Add(time.Hour * 24)
+
+	// Set claims data.
+	claims.RegisteredClaims.Subject = jwtSubject
+	claims.RegisteredClaims.ExpiresAt = jwt.NewNumericDate(expiresAtt)
+	claims.RegisteredClaims.IssuedAt = jwt.NewNumericDate(issuedAt)
+
+	// Create token.
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)
+
+	// Sign token.
+	jwtToken, err := token.SignedString(jwtPrivateKey)
+	if err != nil {
+		return "", model.Claims{}, err
+	}
+
+	return jwtToken, claims, nil
+}
+
 func ValidateJWTToken(ctx context.Context, jwtToken string) (model.Claims, error) {
 	opts := []jwt.ParserOption{
 		jwt.WithoutClaimsValidation(),
