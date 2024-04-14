@@ -38,7 +38,7 @@ func easyjsonB448b467DecodeGithubComArandichMarketplaceSdkModel(in *jlexer.Lexer
 		}
 		switch key {
 		case "user_id":
-			out.UserID = uint64(in.Uint64())
+			out.UserID = string(in.String())
 		case "iss":
 			out.Issuer = string(in.String())
 		case "sub":
@@ -102,7 +102,7 @@ func easyjsonB448b467EncodeGithubComArandichMarketplaceSdkModel(out *jwriter.Wri
 	{
 		const prefix string = ",\"user_id\":"
 		out.RawString(prefix[1:])
-		out.Uint64(uint64(in.UserID))
+		out.String(string(in.UserID))
 	}
 	if in.Issuer != "" {
 		const prefix string = ",\"iss\":"
