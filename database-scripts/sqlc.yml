@@ -12,6 +12,7 @@ sql:
         package: goods
         out: generated/postgres/marketplace-goods
         sql_package: pgx/v5
+        emit_interface: true
   - engine: postgresql
     queries:
       - queries/postgres/marketplace-id/marketplace-id.sql
@@ -22,6 +23,7 @@ sql:
         package: id
         out: generated/postgres/marketplace-id
         sql_package: pgx/v5
+        emit_interface: true
   - engine: postgresql
     queries:
       - queries/postgres/marketplace-orders/marketplace-orders.sql
@@ -32,3 +34,4 @@ sql:
         package: orders
         out: generated/postgres/marketplace-orders
         sql_package: pgx/v5
+        emit_interface: true
