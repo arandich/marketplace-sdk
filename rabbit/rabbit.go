@@ -5,8 +5,6 @@ import (
 	"errors"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/rs/zerolog"
-	"gitlab.com/0xscore/degen-proto/api/proto/enums"
-	"strings"
 	"sync/atomic"
 	"time"
 )
@@ -175,8 +173,4 @@ func (c *Client) closeChan() error {
 
 func (c *Client) isConnEstablished() bool {
 	return c.connEstablished.Load()
-}
-
-func EventTypeToExchange(eventType enums.EventType) string {
-	return strings.TrimSuffix(strings.ToLower(eventType.String()), "_event")
 }
