@@ -1,0 +1,34 @@
+version: 2
+cloud:
+  project: 02HQZ7XJWYGEPBBXBKCG0TBBFB
+sql:
+  - engine: postgresql
+    queries:
+      - queries/postgres/marketplace-goods/marketplace-goods.sql
+    schema:
+      - schema/postgres/marketplace-goods/marketplace-goods.sql
+    gen:
+      go:
+        package: goods
+        out: generated/postgres/marketplace-goods
+        sql_package: pgx/v5
+  - engine: postgresql
+    queries:
+      - queries/postgres/marketplace-id/marketplace-id.sql
+    schema:
+      - schema/postgres/marketplace-id/marketplace-id.sql
+    gen:
+      go:
+        package: id
+        out: generated/postgres/marketplace-id
+        sql_package: pgx/v5
+  - engine: postgresql
+    queries:
+      - queries/postgres/marketplace-orders/marketplace-orders.sql
+    schema:
+      - schema/postgres/marketplace-orders/marketplace-orders.sql
+    gen:
+      go:
+        package: orders
+        out: generated/postgres/marketplace-orders
+        sql_package: pgx/v5
