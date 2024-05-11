@@ -35,3 +35,14 @@ sql:
         out: generated/postgres/marketplace-orders
         sql_package: pgx/v5
         emit_interface: true
+  - engine: postgresql
+    queries:
+      - queries/postgres/marketplace-api/marketplace-api.sql
+    schema:
+      - schema/postgres/marketplace-api/marketplace-api.sql
+    gen:
+      go:
+        package: orders
+        out: generated/postgres/marketplace-api
+        sql_package: pgx/v5
+        emit_interface: true
